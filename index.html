@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Frostbite Lifestyle - Club & Restaurant</title>
+  <!-- Google Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <style>
+    /* Reset and base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background: #121212;
+      color: #e0e0e0;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      color: #03dac6;
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+    a:hover,
+    a:focus {
+      color: #00a896;
+      outline: none;
+    }
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    h3 {
+      font-size: 1.5rem;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+
+    /* Container for consistent max width and horizontal padding */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+    }
+  
+    /* Main layout padding */
+    main {
+      flex-grow: 1;
+      padding: 48px 0 72px;
+      background: #181818;
+    }
+
+    /* Header */
+    header {
+      background: #1f1f1f;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.75);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 24px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      font-size: 1.75rem;
+      color: #03dac6;
+    }
+    .logo img {
+      height: 40px;
+      width: auto;
+      display: block;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+    nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    nav a {
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+    nav a:hover,
+    nav a:focus {
+      background-color: #03dac6;
+      color: #121212;
+      outline: none;
+    }
+    /* Hamburger for mobile */
+    .mobile-menu-button {
+      display: none;
+      background: none;
+      border: none;
+      color: #03dac6;
+      font-size: 32px;
+      cursor: pointer;
+    }
+    /* Mobile nav */
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+      padding: 16px 24px;
+      background: #1f1f1f;
+    }
+    .mobile-nav a {
+      font-size: 1.25rem;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      color: #e0e0e0;
+    }
+    .mobile-nav a:hover,
+    .mobile-nav a:focus {
+      background-color: #03dac6;
+      color: #121212;
+      outline: none;
+    }
+
+    /* Responsive header nav */
+    @media (max-width: 768px) {
+      nav.desktop-nav {
+        display: none;
+      }
+      .mobile-menu-button {
+        display: block;
+      }
+      .mobile-nav.show {
+        display: flex;
+      }
+    }
+
+    /* Section titles */
+    section {
+      margin-bottom: 64px;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    /* Food Menu */
+    .food-menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+    .food-card {
+      background: #272727;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 16px rgb(0 0 0 / 0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease;
+    }
+    .food-card:hover,
+    .food-card:focus-within {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgb(3, 218, 198 / 0.5);
+    }
+    .food-card img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+    .food-card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      color: #03dac6;
+    }
+    .food-card p {
+      flex-grow: 1;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+    .food-card .price {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #a0f0e7;
+    }
+    .food-card button {
+      background: #03dac6;
+      border: none;
+      color: #121212;
+      padding: 12px 20px;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .food-card button:hover,
+    .food-card button:focus {
+      background: #00a896;
+      outline: none;
+    }
+
+    /* Ticket Section */
+    .event-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+    .event-card {
+      background: #272727;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 16px rgb(0 0 0 / 0.4);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease;
+    }
+    .event-card:hover,
+    .event-card:focus-within {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgb(3, 218, 198 / 0.5);
+    }
+    .event-card h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #03dac6;
+    }
+    .event-card p {
+      margin-bottom: 12px;
+      color: #ccc;
+    }
+    .event-card .date {
+      font-weight: 700;
+      color: #a0f0e7;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+    .event-card button {
+      align-self: flex-start;
+      background: #03dac6;
+      border: none;
+      color: #121212;
+      padding: 12px 20px;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .event-card button:hover,
+    .event-card button:focus {
+      background: #00a896;
+      outline: none;
+    }
+
+    /* Cart Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgb(0 0 0 / 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal {
+      background: #1e1e1e;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 12px 30px rgb(3, 218, 198 / 0.7);
+      position: relative;
+      padding: 24px;
+      color: #e0e0e0;
+    }
+    .modal h2 {
+      margin-top: 0;
+      margin-bottom: 24px;
+      color: #03dac6;
+    }
+    .modal .close-button {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: #03dac6;
+      font-size: 28px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .modal .close-button:hover,
+    .modal .close-button:focus {
+      color: #00a896;
+      outline: none;
+    }
+    .cart-items {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      font-size: 1rem;
+    }
+    .cart-item .item-name {
+      flex: 1 1 60%;
+    }
+    .cart-item .item-info {
+      flex: 1 1 30%;
+      text-align: right;
+    }
+    .cart-item button.remove-item {
+      background: none;
+      border: none;
+      color: #ff5555;
+      font-weight: 700;
+      margin-left: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    .cart-item button.remove-item:hover,
+    .cart-item button.remove-item:focus {
+      color: #ff2222;
+      outline: none;
+    }
+    .modal-footer {
+      font-weight: 700;
+      text-align: right;
+      font-size: 1.1rem;
+      border-top: 1px solid #03dac6;
+      padding-top: 16px;
+    }
+    .modal-footer button {
+      background: #03dac6;
+      border: none;
+      color: #121212;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 16px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 16px;
+      float: right;
+      transition: background-color 0.3s ease;
+    }
+    .modal-footer button:hover,
+    .modal-footer button:focus {
+      background: #00a896;
+      outline: none;
+    }
+    /* Form styling for checkout */
+    .modal form {
+      margin-top: 24px;
+    }
+    .modal label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+      margin-top: 16px;
+    }
+    .modal input[type="text"],
+    .modal input[type="email"],
+    .modal input[type="tel"],
+    .modal select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #222222;
+      color: #eee;
+      font-size: 1rem;
+    }
+    .modal input[type="submit"] {
+      margin-top: 24px;
+      width: 100%;
+      background: #03dac6;
+      border: none;
+      color: #121212;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-radius: 16px;
+      padding: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .modal input[type="submit"]:hover,
+    .modal input[type="submit"]:focus {
+      background: #00a896;
+      outline: none;
+    }
+
+    /* Contact Section */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contact-info h3 {
+      color: #03dac6;
+    }
+    .contact-info address {
+      font-style: normal;
+      color: #ccc;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    /* Map placeholder */
+    .map-placeholder {
+      width: 100%;
+      max-width: 600px;
+      height: 320px;
+      background: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fbe75e38-645f-4dcd-a185-ec6284eadf74.png') center center/cover no-repeat;
+      border-radius: 16px;
+      margin-top: 24px;
+      box-shadow: 0 8px 24px rgb(3 218 198 / 0.5);
+      user-select: none;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .gallery-img {
+      width: 100%;
+      border-radius: 16px;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgb(3 218 198 / 0.3);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .gallery-img:hover,
+    .gallery-img:focus {
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    /* Footer */
+    footer {
+      background: #1f1f1f;
+      color: #999999;
+      padding: 24px 0;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: #03dac6;
+      font-weight: 600;
+    }
+    /* Scrollbar for cart modal items */
+    .cart-items::-webkit-scrollbar {
+      width: 8px;
+    }
+    .cart-items::-webkit-scrollbar-track {
+      background: #1e1e1e;
+      border-radius: 8px;
+    }
+    .cart-items::-webkit-scrollbar-thumb {
+      background: #03dac6;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner container">
+      <a href="#home" class="logo" aria-label="Frostbite Lifestyle Club and Restaurant homepage">
+        <img src="https://scontent-jnb2-1.xx.fbcdn.net/v/t39.30808-6/479509796_1159739376152433_5058494076583570418_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=iDV2cKfF7s8Q7kNvwGgzaki&_nc_oc=Admm2GWB9pG4kHEgKKTqlXuJq9wJJpR2TkV1m9bFjerJm1vQVjXsl_0QFJfSxPwlGuE&_nc_zt=23&_nc_ht=scontent-jnb2-1.xx&_nc_gid=5vMc6ogz-qenUntF9fMSTQ&oh=00_AfMGt58K3TSmCbW3uYGdcNx9iMJD-bmBjIlQjHoHUehoHg&oe=6851F153" alt="Frostbite Lifestyle logo in stylish white and ice blue colors" />
+        Frostbite Lifestyle
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#food-menu" tabindex="0">Menu</a>
+        <a href="#events" tabindex="0">Events</a>
+        <a href="#gallery" tabindex="0">Gallery</a>
+        <a href="#contact" tabindex="0">Contact</a>
+        <button id="open-cart-button" aria-controls="cart-modal" aria-haspopup="dialog" aria-expanded="false" title="Open order cart" style="background:none; border:none; cursor:pointer; color:#03dac6; font-size:24px;" aria-label="Open cart">
+          <span class="material-icons">shopping_cart</span>
+          <span id="cart-count" style="font-weight:bold; font-size:0.75rem; vertical-align:super;">0</span>
+        </button>
+      </nav>
+      <button class="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav-menu">
+        <span class="material-icons">menu</span>
+      </button>
+    </div>
+    <nav id="mobile-nav-menu" class="mobile-nav" aria-label="Mobile primary navigation">
+      <a href="#food-menu">Menu</a>
+      <a href="#events">Events</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+      <button id="open-cart-button-mobile" aria-controls="cart-modal" aria-haspopup="dialog" aria-expanded="false" title="Open order cart" style="background:none; border:none; cursor:pointer; color:#03dac6; font-size:24px;" aria-label="Open cart">
+        <span class="material-icons">shopping_cart</span>
+        <span id="cart-count-mobile" style="font-weight:bold; font-size:0.75rem; vertical-align:super;">0</span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="food-menu" class="container" tabindex="-1" aria-label="Food menu and ordering section">
+      <div class="section-header">
+        <h2>Food Menu</h2>
+        <p>Delicious dishes available for order. Add your favorites to the cart!</p>
+      </div>
+      <div class="food-menu" id="food-items-list">
+        <!-- Food items dynamically inserted here -->
+      </div>
+    </section>
+
+    <section id="events" class="container" tabindex="-1" aria-label="Upcoming events and ticket purchasing section">
+      <div class="section-header">
+        <h2>Upcoming Events</h2>
+        <p>Enjoy the best club nights and events. Purchase your tickets online!</p>
+      </div>
+      <div class="event-list" id="event-items-list">
+        <!-- Event items dynamically inserted here -->
+      </div>
+    </section>
+
+    <section id="gallery" class="container" tabindex="-1" aria-label="Gallery of club and restaurant images">
+      <div class="section-header">
+        <h2>Gallery</h2>
+        <p>Explore photos of our venue, events, and delicious food.</p>
+      </div>
+      <div class="gallery-grid" id="gallery-images">
+        <!-- Gallery images dynamically inserted here -->
+      </div>
+    </section>
+
+    <section id="contact" class="container" tabindex="-1" aria-label="Contact and location section">
+      <div class="section-header">
+        <h2>Contact & Location</h2>
+        <p>Reach out to us or visit us in Maruping , Kuruman.</p>
+      </div>
+      <div class="contact-info">
+        <h3>Address</h3>
+        <address>
+          John Taolo Road, Maruping , Kuruman<br />
+          Northern Cape, South Africa
+        </address>
+        <h3>Phone</h3>
+        <a href="tel:+27761234567" aria-label="Call Frostbite Lifestyle phone number">+27 76 123 4567</a>
+        <h3>Email</h3>
+        <a href="mailto:info@frostbitelifestyle.co.za" aria-label="Send email to Frostbite Lifestyle">info@frostbitelifestyle.co.za</a>
+        <div class="map-placeholder" role="img" aria-label="Map placeholder showing location of Frostbite Lifestyle"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Cart Modal -->
+  <div id="cart-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="cart-title" tabindex="-1" hidden>
+    <div class="modal">
+      <button class="close-button" id="close-cart-button" aria-label="Close cart modal">&times;</button>
+      <h2 id="cart-title">Your Order Cart</h2>
+      <ul class="cart-items" id="cart-items-list" aria-live="polite" aria-relevant="additions removals"></ul>
+      <div class="modal-footer">
+        <div id="cart-total-label">Total: R0.00</div>
+        <button id="checkout-button" disabled>Checkout</button>
+      </div>
+      <form id="checkout-form" hidden aria-label="Checkout form">
+        <h3>Checkout</h3>
+        <label for="cust-name">Full Name *</label>
+        <input type="text" id="cust-name" name="cust-name" required autocomplete="name" />
+        
+        <label for="cust-phone">Phone Number *</label>
+        <input type="tel" id="cust-phone" name="cust-phone" required autocomplete="tel" />
+        
+        <label for="cust-email">Email Address *</label>
+        <input type="email" id="cust-email" name="cust-email" required autocomplete="email" />
+        
+        <label for="cust-delivery">Delivery or Pickup</label>
+        <select id="cust-delivery" name="cust-delivery" required>
+          <option value="pickup">Pickup</option>
+          <option value="delivery">Delivery</option>
+        </select>
+
+        <div id="address-container" style="display:none;">
+          <label for="cust-address">Delivery Address</label>
+          <input type="text" id="cust-address" name="cust-address" autocomplete="street-address" />
+        </div>
+        
+        <input type="submit" value="Place Order" />
+      </form>
+      <div id="checkout-success" style="display:none; margin-top: 20px; font-weight:700; color:#4caf50;">
+      Thank you for your order! We will contact you shortly.
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2024 Frostbite Lifestyle | <a href="mailto:info@frostbitelifestyle.co.za">Contact Us</a>
+  </footer>
+
+  <script>
+    // Data for food menu
+    const foodMenu = [
+      {
+        id: 'f01',
+        name: 'Mogodu Buffet',
+        description:
+          'Only Available on Mondays',
+        price: 100.0,
+        image: 'https://scontent-jnb2-1.xx.fbcdn.net/v/t39.30808-6/505833879_1259219686204401_4252680005295607134_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=gDaEY6O6xiAQ7kNvwGI8YXf&_nc_oc=AdmRcMkyDQlDzStucAf3hDzR86FituTk1Go5rA_E1IOIkq_NQMHbUixyPVhPtRrGUwM&_nc_zt=23&_nc_ht=scontent-jnb2-1.xx&_nc_gid=RmXdkhfrWh5uaGxHJ5cuUw&oh=00_AfOdkcluWNLJ5OekygHIBi9MfxZ3wTazEETqo8qPSXsd-w&oe=685202B5'
+        
+      },
+      {
+        id: 'f02',
+        name: 'Bites By King Fez',
+        description:
+          'no description for now',
+        price: 110.0,
+        image: 'https://scontent-jnb2-1.xx.fbcdn.net/v/t39.30808-6/506696466_1262665555859814_5610527235739098457_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=108&ccb=1-7&_nc_sid=833d8c&_nc_ohc=r2hQWpeco34Q7kNvwGdX4u7&_nc_oc=Adk0oMiTFfEcVidOdbpIazqjYLffha0eyHv7VkOQwSNofO3OaQ1e4elBcAJAErYOKjo&_nc_zt=23&_nc_ht=scontent-jnb2-1.xx&_nc_gid=mMF_Ug2C59dITZdyN8PfTQ&oh=00_AfOzJpcqXU1uAgJN3Mt9m_LNVU95WAlxzMIjdGBiVs5B_g&oe=6851FD8A'
+      },
+      {
+        id: 'f03',
+        name: 'Sphatlho Sa Harvard',
+        description:
+          'no description for now',
+        price: 100,
+        image: 'https://scontent-jnb2-1.xx.fbcdn.net/v/t39.30808-6/506940924_1262662645860105_5312139837446630499_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=VDGjXZr3HrcQ7kNvwG1NfG2&_nc_oc=AdlQghrFDAY_3Kuy-oX85L_27cjYfjoIC27NSStWmYcB3i26Q_dVBBAtwajCQ1lLzbY&_nc_zt=23&_nc_ht=scontent-jnb2-1.xx&_nc_gid=mMF_Ug2C59dITZdyN8PfTQ&oh=00_AfNszlj25wCpVrchfB7xGiKVNftimEoPRpf4a1gRjT2mJw&oe=6851EC1B'
+      },
+      
+    ];
+
+    // Data for events
+    const eventList = [
+      {
+        id: 'e01',
+        title: 'Cocktails and Milkshakes',
+        description: 'Local Djz',
+        date: '2024-07-20',
+        price: 80.0
+      },
+      
+    ];
+
+    // Gallery images
+    const galleryImages = [
+      
+      {
+        src: 'https://scontent-jnb2-1.xx.fbcdn.net/v/t39.30808-6/491734871_3060907964061652_2726591656921858094_n.jpg?stp=c90.0.540.540a_dst-jpg_s206x206_tt6&_nc_cat=102&ccb=1-7&_nc_sid=50ad20&_nc_ohc=gSe-WLZ2j7QQ7kNvwGIUlf7&_nc_oc=AdlNzybolyjv8AzT0Xc0OQ2S7FuxJ1JiQv-g7Sn37SgDwI5zcLPpjX11Z3hM8PX_1KA&_nc_zt=23&_nc_ht=scontent-jnb2-1.xx&_nc_gid=X9XSb9Grk9hsIbQMbrn1Ag&oh=00_AfOBbQ9ejGxO8Oxxv2FGUKJHdMC3IYvyZQK-0jkfWHwaMg&oe=6851EB7C',
+        alt: 'desc'
+      },
+      {
+        src: 'https://scontent-jnb2-1.xx.fbcdn.net/v/t39.30808-6/487786268_1200231985436505_7929370560694479651_n.jpg?stp=dst-jpg_s417x417_tt6&_nc_cat=110&ccb=1-7&_nc_sid=f727a1&_nc_ohc=yJ7hITzI7xkQ7kNvwGOSRUJ&_nc_oc=AdnlDoWRbGEgnbmf398HgJseKG2M6_NIkPBisFeVv5BDO_qi8bd9gXdb_-bxfeIzn5Y&_nc_zt=23&_nc_ht=scontent-jnb2-1.xx&_nc_gid=QXzsnXC86Pr9KYajCIQL5w&oh=00_AfN6pbQEWbM-BEb9fvJf-0CVjHfUQ3nhoq-iK6n6BIo7Qg&oe=6852020F',
+        alt: 'MajorLeagueDJz'
+      },
+      
+      {
+        src: 'https://scontent-jnb2-1.xx.fbcdn.net/v/t39.30808-6/487857226_1200232262103144_2209566052924527046_n.jpg?stp=dst-jpg_s417x417_tt6&_nc_cat=101&ccb=1-7&_nc_sid=f727a1&_nc_ohc=WUR5YOJq9awQ7kNvwFIW1nQ&_nc_oc=AdnanaZGSRtnd1Ue7Qw5FknkRAAdCVJDHQXLaIRwkaWNyR-_FMsKE-K-RgB0aRSt9jo&_nc_zt=23&_nc_ht=scontent-jnb2-1.xx&_nc_gid=E6XltOibt6TSNlkZ4y2WtQ&oh=00_AfP96ndF3a-mds1SFpoTaWG8uHzjDbrU1mMd3BdtS7vPlw&oe=6851FBC2',
+        alt: 'desc'
+      },
+      {
+        src: 'https://scontent-jnb2-1.xx.fbcdn.net/v/t39.30808-6/487766245_1200232272103143_495819461254108630_n.jpg?stp=dst-jpg_s552x414_tt6&_nc_cat=105&ccb=1-7&_nc_sid=f727a1&_nc_ohc=clo9M8-nN7kQ7kNvwFeZi3C&_nc_oc=Admnl-YsTpHEF0hfysgVdrHI-xvrMhDHwp_-2szuAMGkhYLiFVVjQhrx2hb4YeBGyW4&_nc_zt=23&_nc_ht=scontent-jnb2-1.xx&_nc_gid=Orbe06U0Oxw6VgryKaexRw&oh=00_AfOmm1aTUrLsudgDkZu21lRBwMuEf7L4xAiZP8k1xg7uyw&oe=6851E623',
+        alt: 'no desc'
+      }
+    ];
+
+    // DOM Elements
+    const foodListEl = document.getElementById('food-items-list');
+    const eventsListEl = document.getElementById('event-items-list');
+    const galleryGridEl = document.getElementById('gallery-images');
+
+    // Cart data structure [{id, type: 'food'|'event', name, price, qty}]
+    let cart = JSON.parse(localStorage.getItem('marupingCart')) || [];
+
+    // Render Food Menu
+    function renderFoodMenu() {
+      foodListEl.innerHTML = '';
+      foodMenu.forEach((item) => {
+        const card = document.createElement('article');
+        card.className = 'food-card';
+        card.tabIndex = 0;
+        card.setAttribute('aria-label', `${item.name}, price R${item.price.toFixed(2)}`);
+        card.innerHTML = `
+          <img src="${item.image}" alt="${item.name} - ${item.description}" loading="lazy" />
+          <h3>${item.name}</h3>
+          <p>${item.description}</p>
+          <div class="price">R${item.price.toFixed(2)}</div>
+          <button type="button" data-id="${item.id}" data-type="food" aria-label="Add ${item.name} to cart">Add to Cart</button>
+        `;
+        foodListEl.appendChild(card);
+      });
+    }
+
+    // Render Events
+    function renderEvents() {
+      eventsListEl.innerHTML = '';
+      eventList.forEach((event) => {
+        const card = document.createElement('article');
+        card.className = 'event-card';
+        card.tabIndex = 0;
+        const eventDate = new Date(event.date);
+        const formattedDate = eventDate.toLocaleDateString(undefined, {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        card.setAttribute('aria-label', `${event.title} on ${formattedDate}, ticket price R${event.price.toFixed(2)}`);
+        card.innerHTML = `
+          <h3>${event.title}</h3>
+          <p>${event.description}</p>
+          <div class="date">${formattedDate}</div>
+          <div class="price">Ticket Price: R${event.price.toFixed(2)}</div>
+          <button type="button" data-id="${event.id}" data-type="event" aria-label="Purchase ticket for ${event.title}">Buy Ticket</button>
+        `;
+        eventsListEl.appendChild(card);
+      });
+    }
+
+    // Render Gallery
+    function renderGallery() {
+      galleryGridEl.innerHTML = '';
+      galleryImages.forEach((img) => {
+        const imageEl = document.createElement('img');
+        imageEl.className = 'gallery-img';
+        imageEl.src = img.src;
+        imageEl.alt = img.alt;
+        imageEl.loading = 'lazy';
+        imageEl.tabIndex = 0;
+        galleryGridEl.appendChild(imageEl);
+      });
+    }
+
+    // Update cart UI counts
+    const cartCountEls = [
+      document.getElementById('cart-count'),
+      document.getElementById('cart-count-mobile')
+    ];
+    function updateCartCount() {
+      const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+      cartCountEls.forEach(el => { el.textContent = totalQty; });
+    }
+
+    // Save cart to localStorage
+    function saveCart() {
+      localStorage.setItem('marupingCart', JSON.stringify(cart));
+      updateCartCount();
+    }
+
+    // Add item to cart
+    function addToCart(id, type) {
+      const catalog = type === 'food' ? foodMenu : eventList;
+      const item = catalog.find(x => x.id === id);
+      if (!item) return;
+
+      // Check if item is already in cart
+      const cartItem = cart.find(x => x.id === id && x.type === type);
+      if (cartItem) {
+        cartItem.qty += 1;
+      } else {
+        cart.push({ id: id, type: type, name: item.name, price: item.price, qty: 1 });
+      }
+      saveCart();
+      alert(`${item.name} added to cart.`);
+    }
+
+    // Render Cart Modal Items
+    const cartModal = document.getElementById('cart-modal');
+    const cartItemsList = document.getElementById('cart-items-list');
+    const cartTotalLabel = document.getElementById('cart-total-label');
+    const checkoutButton = document.getElementById('checkout-button');
+    const checkoutForm = document.getElementById('checkout-form');
+    const checkoutSuccess = document.getElementById('checkout-success');
+
+    function renderCartItems() {
+      cartItemsList.innerHTML = '';
+      if (cart.length === 0) {
+        cartItemsList.innerHTML = '<li>Your cart is empty.</li>';
+        cartTotalLabel.textContent = 'Total: R0.00';
+        checkoutButton.disabled = true;
+        checkoutForm.hidden = true;
+        checkoutSuccess.style.display = 'none';
+        return;
+      }
+      let total = 0;
+      cart.forEach((item, index) => {
+        total += item.price * item.qty;
+        const li = document.createElement('li');
+        li.className = 'cart-item';
+        li.innerHTML = `
+          <span class="item-name">${item.name} x${item.qty}</span>
+          <span class="item-info">R${(item.price * item.qty).toFixed(2)}</span>
+          <button class="remove-item" data-index="${index}" aria-label="Remove one ${item.name} from cart">&times;</button>
+        `;
+        cartItemsList.appendChild(li);
+      });
+      cartTotalLabel.textContent = `Total: R${total.toFixed(2)}`;
+      checkoutButton.disabled = false;
+      checkoutForm.hidden = true;
+      checkoutSuccess.style.display = 'none';
+    }
+
+    // Event listeners for cart remove buttons
+    cartItemsList.addEventListener('click', (e) => {
+      if (e.target.classList.contains('remove-item')) {
+        const index = parseInt(e.target.getAttribute('data-index'), 10);
+        if (!isNaN(index)) {
+          cart[index].qty -= 1;
+          if (cart[index].qty <= 0) {
+            cart.splice(index, 1);
+          }
+          saveCart();
+          renderCartItems();
+        }
+      }
+    });
+
+    // Open and close cart modal
+    const openCartButtons = document.querySelectorAll('#open-cart-button, #open-cart-button-mobile');
+    const closeCartButton = document.getElementById('close-cart-button');
+
+    openCartButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        cartModal.hidden = false;
+        cartModal.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+        renderCartItems();
+        // Trap focus in modal
+        trapFocus(cartModal);
+      });
+    });
+    closeCartButton.addEventListener('click', () => {
+      cartModal.classList.remove('active');
+      setTimeout(() => {
+        cartModal.hidden = true;
+      }, 300);
+      openCartButtons.forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+      releaseFocus();
+    });
+
+    // Trap focus within modal for accessibility
+    let lastFocusedElement = null;
+    function trapFocus(element) {
+      lastFocusedElement = document.activeElement;
+      const focusableElements = element.querySelectorAll(
+        'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusableElements.length === 0) return;
+
+      const firstEl = focusableElements[0];
+      const lastEl = focusableElements[focusableElements.length - 1];
+
+      function handleFocusTrap(e) {
+        if (e.key === 'Tab') {
+          if (e.shiftKey) {
+            if (document.activeElement === firstEl) {
+              e.preventDefault();
+              lastEl.focus();
+            }
+          } else {
+            if (document.activeElement === lastEl) {
+              e.preventDefault();
+              firstEl.focus();
+            }
+          }
+        } else if (e.key === 'Escape') {
+          closeCartButton.click();
+        }
+      }
+      element.addEventListener('keydown', handleFocusTrap);
+      firstEl.focus();
+      element._handleFocusTrap = handleFocusTrap;
+    }
+    function releaseFocus() {
+      if (lastFocusedElement) lastFocusedElement.focus();
+      if (cartModal._handleFocusTrap) {
+        cartModal.removeEventListener('keydown', cartModal._handleFocusTrap);
+        cartModal._handleFocusTrap = null;
+      }
+    }
+
+    // Checkout button opens form
+    checkoutButton.addEventListener('click', () => {
+      checkoutForm.hidden = false;
+      checkoutSuccess.style.display = 'none';
+      checkoutButton.disabled = true;
+      const firstInput = checkoutForm.querySelector('input, select');
+      if (firstInput) firstInput.focus();
+    });
+
+    // Show or hide delivery address input based on delivery option
+    const deliverySelect = document.getElementById('cust-delivery');
+    const addressContainer = document.getElementById('address-container');
+    deliverySelect.addEventListener('change', () => {
+      if (deliverySelect.value === 'delivery') {
+        addressContainer.style.display = 'block';
+        addressContainer.querySelector('input').setAttribute('required', 'required');
+      } else {
+        addressContainer.style.display = 'none';
+        addressContainer.querySelector('input').removeAttribute('required');
+      }
+    });
+
+    // Handle checkout form submission
+    checkoutForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      // Basic validation done by browser
+      // Here, can simulate sending order and then clear cart
+      cart = [];
+      saveCart();
+      renderCartItems();
+      checkoutForm.reset();
+      checkoutForm.hidden = true;
+      checkoutSuccess.style.display = 'block';
+      checkoutButton.disabled = true;
+    });
+
+    // Event delegation for Add to Cart / Buy Ticket buttons
+    document.body.addEventListener('click', (e) => {
+      const target = e.target;
+      if (
+        target.tagName === 'BUTTON' &&
+        (target.hasAttribute('data-id') && target.hasAttribute('data-type'))
+      ) {
+        const id = target.getAttribute('data-id');
+        const type = target.getAttribute('data-type');
+        addToCart(id, type);
+      }
+    });
+
+    // Mobile menu toggle
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const mobileNavMenu = document.getElementById('mobile-nav-menu');
+    mobileMenuButton.addEventListener('click', () => {
+      const isOpen = mobileNavMenu.classList.toggle('show');
+      mobileMenuButton.setAttribute('aria-expanded', isOpen.toString());
+    });
+
+    // Initialize UI
+    renderFoodMenu();
+    renderEvents();
+    renderGallery();
+    updateCartCount();
+
+    // Scroll focus to content when navigation clicked for accessibility
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const hash = link.getAttribute('href');
+        if (hash && hash.startsWith('#')) {
+          e.preventDefault();
+          const targetSection = document.querySelector(hash);
+          if (targetSection) {
+            targetSection.focus({preventScroll: true});
+            window.scrollTo({
+              top: targetSection.offsetTop - 72,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+
+  </script>
+</body>
+</html>
+
